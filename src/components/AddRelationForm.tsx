@@ -49,12 +49,12 @@ export function AddRelationForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="paper-card rounded-2xl p-4 space-y-3 pop-in">
+    <form onSubmit={handleSubmit} className="paper-card rounded-3xl p-4 space-y-3 pop-in">
       <div className="flex flex-col sm:flex-row gap-2">
         <select
           value={kind}
           onChange={(e) => setKind(e.target.value as RelationKind)}
-          className="bg-transparent border border-line rounded-xl p-2 text-sm outline-none focus:border-olive"
+          className="bg-transparent border border-line rounded-2xl p-2 text-sm outline-none focus:border-olive"
         >
           {RELATION_KINDS.map((k) => (
             <option key={k} value={k}>
@@ -65,7 +65,7 @@ export function AddRelationForm({
         <select
           value={to}
           onChange={(e) => setTo(e.target.value)}
-          className="flex-1 bg-transparent border border-line rounded-xl p-2 text-sm outline-none focus:border-olive"
+          className="flex-1 bg-transparent border border-line rounded-2xl p-2 text-sm outline-none focus:border-olive"
         >
           {otherEntries.map((e) => (
             <option key={e.id} value={e.id}>
@@ -78,7 +78,7 @@ export function AddRelationForm({
         value={note}
         onChange={(e) => setNote(e.target.value)}
         placeholder="why? (optional)"
-        className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-olive"
+        className="w-full bg-transparent border border-line rounded-2xl p-2.5 text-sm outline-none focus:border-olive"
       />
       <div className="flex gap-2">
         <button

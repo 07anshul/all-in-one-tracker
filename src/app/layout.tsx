@@ -1,25 +1,20 @@
 import type { Metadata } from "next";
-import { Fraunces, Karla, Space_Mono } from "next/font/google";
+import { Fredoka, Nunito } from "next/font/google";
 import Link from "next/link";
 import { NavMenu } from "@/components/NavMenu";
 import { Logo } from "@/components/Logo";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const fredoka = Fredoka({
+  variable: "--font-fredoka",
   subsets: ["latin"],
-  axes: ["opsz", "SOFT", "WONK"],
+  weight: ["500", "600", "700"],
 });
 
-const karla = Karla({
-  variable: "--font-karla",
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
-});
-
-const spaceMono = Space_Mono({
-  variable: "--font-space-mono",
-  subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -29,23 +24,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${fraunces.variable} ${karla.variable} ${spaceMono.variable} h-full`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={`${fredoka.variable} ${nunito.variable} h-full`}>
       <body className="min-h-full flex flex-col font-body text-ink">
-        <script
-          // Runs before paint to avoid a flash of the wrong theme on load.
-          dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}`,
-          }}
-        />
         <header className="border-b border-line">
           <div className="mx-auto max-w-4xl px-5 py-4 flex items-center justify-between gap-3">
             <Link href="/" className="group shrink-0 flex items-center gap-1.5">
               <Logo className="h-6 w-6 group-hover:scale-110 transition-transform" />
-              <span className="font-display italic text-2xl tracking-tight">
+              <span className="font-display text-2xl tracking-tight">
                 Plan Better
               </span>
             </Link>

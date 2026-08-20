@@ -83,7 +83,7 @@ export default function AddEntryPage() {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Church Street"
-            className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-rust"
+            className="w-full bg-transparent border border-line rounded-2xl p-2.5 text-sm outline-none focus:border-rust"
           />
         </Field>
 
@@ -93,7 +93,7 @@ export default function AddEntryPage() {
             onChange={(e) => setSpeciality(e.target.value)}
             placeholder="Hand-pulled noodles. Ask for extra numbing."
             rows={2}
-            className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-rust"
+            className="w-full bg-transparent border border-line rounded-2xl p-2.5 text-sm outline-none focus:border-rust"
           />
         </Field>
 
@@ -102,11 +102,11 @@ export default function AddEntryPage() {
             value={tags}
             onChange={(e) => setTags(e.target.value)}
             placeholder="noodles, spicy, late-night"
-            className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-rust"
+            className="w-full bg-transparent border border-line rounded-2xl p-2.5 text-sm outline-none focus:border-rust"
           />
         </Field>
 
-        <div className="paper-card rounded-2xl p-4 space-y-3">
+        <div className="paper-card rounded-3xl p-4 space-y-3">
           <p className="font-label text-[11px] uppercase tracking-widest text-ink-soft">
             first note (optional)
           </p>
@@ -131,7 +131,7 @@ export default function AddEntryPage() {
             onChange={(e) => setNote(e.target.value)}
             placeholder="what did you think?"
             rows={2}
-            className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-rust"
+            className="w-full bg-transparent border border-line rounded-2xl p-2.5 text-sm outline-none focus:border-rust"
           />
         </div>
 

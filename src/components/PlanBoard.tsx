@@ -115,7 +115,7 @@ export function PlanBoard({ plans, today }: { plans: PlanWithEntry[]; today: str
 
   return (
     <div>
-      <div className="paper-card rounded-2xl p-4 sm:p-5">
+      <div className="paper-card rounded-3xl p-4 sm:p-5">
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => shiftMonth(-1)}
@@ -124,7 +124,7 @@ export function PlanBoard({ plans, today }: { plans: PlanWithEntry[]; today: str
           >
             ←
           </button>
-          <h2 className="font-display text-lg italic">{monthLabel(viewYear, viewMonth)}</h2>
+          <h2 className="font-display text-lg">{monthLabel(viewYear, viewMonth)}</h2>
           <button
             onClick={() => shiftMonth(1)}
             className="font-label text-ink-soft hover:text-rust transition-colors cursor-pointer px-2"
@@ -153,7 +153,7 @@ export function PlanBoard({ plans, today }: { plans: PlanWithEntry[]; today: str
               <button
                 key={iso}
                 onClick={() => setSelectedDay(isSelected ? null : iso)}
-                className={`aspect-square rounded-xl border text-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer transition-colors ${
+                className={`aspect-square rounded-2xl border text-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer transition-colors ${
                   isSelected
                     ? "border-rust"
                     : isToday
@@ -267,7 +267,7 @@ function PlanRow({
   onRemove: (id: string) => void;
 }) {
   return (
-    <div className="paper-card rounded-2xl p-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+    <div className="paper-card rounded-3xl p-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <span
@@ -278,7 +278,7 @@ function PlanRow({
           {plan.date && <span className="font-label text-[11px] text-ink-soft">{plan.date}</span>}
           <Link
             href={`/entry/${plan.entryId}`}
-            className="font-display italic hover:text-rust transition-colors"
+            className="font-display hover:text-rust transition-colors"
           >
             {plan.entryName}
           </Link>

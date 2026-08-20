@@ -107,7 +107,7 @@ export function StatsView({ entries, plans }: { entries: Entry[]; plans: Plan[] 
               <div key={month} className="flex-1 flex flex-col items-center justify-end h-full gap-1.5">
                 <span className="font-label text-[10px] text-ink-soft">{count}</span>
                 <div
-                  className="w-full rounded-2xl"
+                  className="w-full rounded-3xl"
                   style={{
                     height: `${Math.max((count / maxMonthCount) * 100, 6)}%`,
                     backgroundColor: "var(--ink-soft)",
@@ -129,7 +129,7 @@ export function StatsView({ entries, plans }: { entries: Entry[]; plans: Plan[] 
 
 function StatTile({ value, label }: { value: string | number; label: string }) {
   return (
-    <div className="paper-card rounded-2xl p-4 text-center">
+    <div className="paper-card rounded-3xl p-4 text-center">
       <div className="font-display text-3xl">{value}</div>
       <div className="font-label text-[10px] uppercase tracking-widest text-ink-soft mt-1">
         {label}

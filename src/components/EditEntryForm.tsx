@@ -60,7 +60,7 @@ export function EditEntryForm({ entry, onDone }: { entry: Entry; onDone: () => v
   }
 
   return (
-    <form onSubmit={handleSubmit} className="paper-card rounded-2xl p-5 space-y-4 pop-in">
+    <form onSubmit={handleSubmit} className="paper-card rounded-3xl p-5 space-y-4 pop-in">
       <div className="flex gap-1.5">
         {ENTRY_TYPES.map((t) => (
           <button
@@ -86,20 +86,20 @@ export function EditEntryForm({ entry, onDone }: { entry: Entry; onDone: () => v
         value={location}
         onChange={(e) => setLocation(e.target.value)}
         placeholder="location"
-        className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-rust"
+        className="w-full bg-transparent border border-line rounded-2xl p-2.5 text-sm outline-none focus:border-rust"
       />
       <textarea
         value={speciality}
         onChange={(e) => setSpeciality(e.target.value)}
         placeholder="the move — what's actually good here"
         rows={2}
-        className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-rust"
+        className="w-full bg-transparent border border-line rounded-2xl p-2.5 text-sm outline-none focus:border-rust"
       />
       <input
         value={tags}
         onChange={(e) => setTags(e.target.value)}
         placeholder="tags, comma separated"
-        className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-rust"
+        className="w-full bg-transparent border border-line rounded-2xl p-2.5 text-sm outline-none focus:border-rust"
       />
 
       {error && <p className="text-rust text-sm">{error}</p>}

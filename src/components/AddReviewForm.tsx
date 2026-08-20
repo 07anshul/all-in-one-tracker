@@ -40,7 +40,7 @@ export function AddReviewForm({ entryId }: { entryId: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="paper-card rounded-2xl p-4 space-y-3 pop-in">
+    <form onSubmit={handleSubmit} className="paper-card rounded-3xl p-4 space-y-3 pop-in">
       <div className="flex items-center gap-3">
         <span className="font-label text-[11px] uppercase tracking-widest text-ink-soft">
           rating
@@ -62,7 +62,7 @@ export function AddReviewForm({ entryId }: { entryId: string }) {
         onChange={(e) => setNote(e.target.value)}
         placeholder="what did you think?"
         rows={3}
-        className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-rust"
+        className="w-full bg-transparent border border-line rounded-2xl p-2.5 text-sm outline-none focus:border-rust"
       />
       <div className="flex gap-2">
         <button

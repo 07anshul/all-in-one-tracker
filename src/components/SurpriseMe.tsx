@@ -45,9 +45,9 @@ export function SurpriseMe({
         ✦ surprise me
       </button>
       {picked && (
-        <div className="mt-3 paper-card rounded-2xl p-4 pop-in">
+        <div className="mt-3 paper-card rounded-3xl p-4 pop-in">
           <div className="flex items-start justify-between gap-3">
-            <h3 className="font-display text-xl italic">{picked.name}</h3>
+            <h3 className="font-display text-xl">{picked.name}</h3>
             <TypeBadge type={picked.type} />
           </div>
           {picked.speciality && (

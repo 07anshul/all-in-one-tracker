@@ -56,7 +56,7 @@ export default async function EntryPage({
           {[...entry.reviews]
             .sort((a, b) => b.date.localeCompare(a.date))
             .map((review) => (
-              <div key={review.id} className="paper-card rounded-2xl p-4">
+              <div key={review.id} className="paper-card rounded-3xl p-4">
                 <div className="flex items-center justify-between">
                   <RatingDots value={review.rating} />
                   <span className="font-label text-[11px] text-ink-soft">{review.date}</span>
@@ -89,13 +89,13 @@ export default async function EntryPage({
             <Link
               key={relation.id}
               href={`/entry/${other.id}`}
-              className="paper-card rounded-2xl p-3 flex items-center justify-between gap-3 hover:border-olive/60 transition-colors block"
+              className="paper-card rounded-3xl p-3 flex items-center justify-between gap-3 hover:border-olive/60 transition-colors block"
             >
               <span className="text-sm">
                 <span className="text-ink-soft">
                   is {forward ? RELATION_LABELS[relation.kind] : RELATION_LABELS_REVERSED[relation.kind]}
                 </span>{" "}
-                <span className="font-display italic">{other.name}</span>
+                <span className="font-display">{other.name}</span>
                 {relation.note && (
                   <span className="text-ink-soft"> — {relation.note}</span>
                 )}

@@ -105,7 +105,7 @@ export function ItineraryBuilder({
           className="w-full font-body text-sm bg-transparent border-b border-line focus:border-rust outline-none py-1.5 placeholder:text-ink-soft/70"
         />
         {searchResults.length > 0 && (
-          <div className="absolute z-10 mt-1 w-full paper-card rounded-2xl overflow-hidden">
+          <div className="absolute z-10 mt-1 w-full paper-card rounded-3xl overflow-hidden">
             {searchResults.map((e) => (
               <button
                 key={e.id}
@@ -129,9 +129,9 @@ export function ItineraryBuilder({
             return (
               <div
                 key={entry.id}
-                className="paper-card rounded-2xl p-3 flex items-center gap-3"
+                className="paper-card rounded-3xl p-3 flex items-center gap-3"
               >
-                <span className="font-display italic text-ink-soft w-6 text-center shrink-0">
+                <span className="font-display text-ink-soft w-6 text-center shrink-0">
                   {i + 1}
                 </span>
                 <div className="flex-1 min-w-0">

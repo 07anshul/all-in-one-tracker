@@ -1,31 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f8f2e5;
-  --paper-card: #fffcf6;
-  --ink: #2b241c;
-  --ink-soft: #6b6055;
-  --line: #e3d5b8;
+  --paper: #f8f5fb;
+  --paper-card: #ffffff;
+  --ink: #2a2540;
+  --ink-soft: #726c8a;
+  --line: #e6e1f2;
   --rust: #d9573a;
   --rust-soft: #f3d6c9;
   --olive: #6f9143;
   --olive-soft: #dfe8cc;
   --ochre: #dd9c1f;
   --ochre-soft: #f6e3b0;
-}
-
-:root[data-theme="dark"] {
-  --paper: #1b1812;
-  --paper-card: #24211a;
-  --ink: #ece3d2;
-  --ink-soft: #a89c89;
-  --line: #3c362a;
-  --rust: #d1653a;
-  --rust-soft: #4a2c1e;
-  --olive: #7ba050;
-  --olive-soft: #33401f;
-  --ochre: #b8842a;
-  --ochre-soft: #3d3018;
 }
 
 @theme inline {
@@ -40,18 +26,19 @@
   --color-olive-soft: var(--olive-soft);
   --color-ochre: var(--ochre);
   --color-ochre-soft: var(--ochre-soft);
-  --font-display: var(--font-fraunces);
-  --font-body: var(--font-karla);
-  --font-label: var(--font-space-mono);
+  --font-display: var(--font-fredoka);
+  --font-body: var(--font-nunito);
+  --font-label: var(--font-nunito);
 }
 
 body {
   background-color: var(--paper);
   color: var(--ink);
   background-image:
-    radial-gradient(var(--line) 1px, transparent 1px);
-  background-size: 22px 22px;
-  background-position: -11px -11px;
+    radial-gradient(640px circle at 88% -8%, rgba(217, 87, 58, 0.10), transparent 60%),
+    radial-gradient(760px circle at -12% 12%, rgba(111, 145, 67, 0.09), transparent 60%),
+    radial-gradient(520px circle at 50% 105%, rgba(221, 156, 31, 0.08), transparent 60%);
+  background-attachment: fixed;
 }
 
 ::selection {
@@ -62,6 +49,7 @@ body {
 .paper-card {
   background-color: var(--paper-card);
   border: 1px solid var(--line);
+  box-shadow: 0 12px 28px -16px rgba(58, 42, 90, 0.22);
 }
 
 @keyframes fadeIn {
@@ -88,8 +76,4 @@ body {
 
 .pop-in {
   animation: popIn 0.35s cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
-}
-
-body {
-  transition: background-color 0.2s ease, color 0.2s ease;
 }

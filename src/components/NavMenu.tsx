@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ThemeToggle } from "./ThemeToggle";
 
 const NAV_LINKS = [
   { href: "/", label: "index" },
@@ -32,8 +31,6 @@ export function NavMenu() {
         <Link href="/add" className="text-rust hover:underline">
           + add
         </Link>
-        <span className="text-line">|</span>
-        <ThemeToggle />
       </nav>
 
       <div className="sm:hidden relative">
@@ -69,26 +66,22 @@ export function NavMenu() {
               onClick={() => setOpen(false)}
               aria-hidden="true"
             />
-            <div className="absolute right-0 top-full mt-2 w-48 paper-card rounded-2xl p-2 z-20 pop-in shadow-lg flex flex-col">
+            <div className="absolute right-0 top-full mt-2 w-48 paper-card rounded-3xl p-2 z-20 pop-in shadow-lg flex flex-col">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-3 py-2 rounded-xl hover:bg-[var(--rust-soft)] font-label text-[11px] uppercase tracking-widest text-ink-soft hover:text-rust transition-colors"
+                  className="px-3 py-2 rounded-2xl hover:bg-[var(--rust-soft)] font-label text-[11px] uppercase tracking-widest text-ink-soft hover:text-rust transition-colors"
                 >
                   {link.label}
                 </Link>
               ))}
               <Link
                 href="/add"
-                className="px-3 py-2 rounded-xl hover:bg-[var(--rust-soft)] font-label text-[11px] uppercase tracking-widest text-rust"
+                className="px-3 py-2 rounded-2xl hover:bg-[var(--rust-soft)] font-label text-[11px] uppercase tracking-widest text-rust"
               >
                 + add
               </Link>
-              <div className="border-t border-line my-1.5" />
-              <div className="px-3 py-1.5">
-                <ThemeToggle />
-              </div>
             </div>
           </>
         )}

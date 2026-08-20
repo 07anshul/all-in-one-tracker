@@ -68,7 +68,7 @@ export function GraphView({ entries, relations }: { entries: Entry[]; relations:
   }
 
   if (!positions) {
-    return <div className="paper-card rounded-2xl" style={{ height: 320 }} />;
+    return <div className="paper-card rounded-3xl" style={{ height: 320 }} />;
   }
 
   return (
@@ -90,7 +90,7 @@ export function GraphView({ entries, relations }: { entries: Entry[]; relations:
         </label>
       </div>
 
-      <div className="paper-card rounded-2xl overflow-x-auto">
+      <div className="paper-card rounded-3xl overflow-x-auto">
         <svg
           ref={svgRef}
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
@@ -165,7 +165,7 @@ export function GraphView({ entries, relations }: { entries: Entry[]; relations:
                 <text
                   y={radius + 14}
                   textAnchor="middle"
-                  className="font-display italic"
+                  className="font-display"
                   style={{ fontSize: 13, fill: "var(--ink)" }}
                 >
                   {entry.name}

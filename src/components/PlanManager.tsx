@@ -73,7 +73,7 @@ export function PlanManager({ entryId, plans }: { entryId: string; plans: Plan[]
       {plans.map((plan) => (
         <div
           key={plan.id}
-          className="paper-card rounded-2xl p-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3"
+          className="paper-card rounded-3xl p-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3"
         >
           <div className="flex-1 min-w-0">
             <span
@@ -146,7 +146,7 @@ export function PlanManager({ entryId, plans }: { entryId: string; plans: Plan[]
           + plan a visit
         </button>
       ) : (
-        <form onSubmit={handleSubmit} className="paper-card rounded-2xl p-4 space-y-3 pop-in">
+        <form onSubmit={handleSubmit} className="paper-card rounded-3xl p-4 space-y-3 pop-in">
           <label className="flex items-center gap-2 font-label text-[11px] uppercase tracking-widest text-ink-soft">
             date (optional)
             <input
@@ -160,7 +160,7 @@ export function PlanManager({ entryId, plans }: { entryId: string; plans: Plan[]
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="why? (optional)"
-            className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-ochre"
+            className="w-full bg-transparent border border-line rounded-2xl p-2.5 text-sm outline-none focus:border-ochre"
           />
           <div className="flex gap-2">
             <button

@@ -19,7 +19,7 @@ export function EmptyState({ message }: { message: string }) {
           strokeLinecap="round"
         />
       </svg>
-      <p className="text-ink-soft italic font-display text-lg">{message}</p>
+      <p className="text-ink-soft font-display text-lg">{message}</p>
     </div>
   );
 }
