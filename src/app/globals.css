@@ -28,22 +28,6 @@
   --ochre-soft: #3d3018;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #1b1812;
-    --paper-card: #24211a;
-    --ink: #ece3d2;
-    --ink-soft: #a89c89;
-    --line: #3c362a;
-    --rust: #d1653a;
-    --rust-soft: #4a2c1e;
-    --olive: #7ba050;
-    --olive-soft: #33401f;
-    --ochre: #b8842a;
-    --ochre-soft: #3d3018;
-  }
-}
-
 @theme inline {
   --color-paper: var(--paper);
   --color-card: var(--paper-card);

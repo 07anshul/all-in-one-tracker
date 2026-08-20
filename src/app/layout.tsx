@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Karla, Space_Mono } from "next/font/google";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { NavMenu } from "@/components/NavMenu";
 import { Logo } from "@/components/Logo";
 import "./globals.css";
 
@@ -27,14 +27,6 @@ export const metadata: Metadata = {
   description: "Restaurants, places, and things worth doing again — plotted, rated, and remembered.",
 };
 
-const NAV_LINKS = [
-  { href: "/", label: "index" },
-  { href: "/graph", label: "graph" },
-  { href: "/plan", label: "plan" },
-  { href: "/stats", label: "ledger" },
-  { href: "/itinerary", label: "itinerary" },
-];
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -50,29 +42,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           }}
         />
         <header className="border-b border-line">
-          <div className="mx-auto max-w-4xl px-5 py-4 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3">
+          <div className="mx-auto max-w-4xl px-5 py-4 flex items-center justify-between gap-3">
             <Link href="/" className="group shrink-0 flex items-center gap-1.5">
               <Logo className="h-6 w-6 group-hover:scale-110 transition-transform" />
               <span className="font-display italic text-2xl tracking-tight">
                 Plan Better
               </span>
             </Link>
-            <nav className="flex items-center gap-x-4 gap-y-2 flex-wrap font-label text-[11px] uppercase tracking-widest text-ink-soft">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="hover:text-rust transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link href="/add" className="text-rust hover:underline">
-                + add
-              </Link>
-              <span className="text-line">|</span>
-              <ThemeToggle />
-            </nav>
+            <NavMenu />
           </div>
         </header>
         <main className="flex-1">
