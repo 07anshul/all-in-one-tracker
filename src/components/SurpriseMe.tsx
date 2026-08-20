@@ -40,12 +40,12 @@ export function SurpriseMe({
     <div>
       <button
         onClick={pick}
-        className="font-label text-[11px] uppercase tracking-widest text-olive border border-olive rounded-sm px-3 py-1.5 hover:bg-[var(--olive-soft)] transition-colors cursor-pointer"
+        className="font-label text-[11px] uppercase tracking-widest text-olive border border-olive rounded-full px-3.5 py-1.5 hover:bg-[var(--olive-soft)] hover:scale-105 transition-all cursor-pointer"
       >
-        surprise me
+        ✦ surprise me
       </button>
       {picked && (
-        <div className="mt-3 paper-card rounded-sm p-4" style={{ animation: "fadeIn 0.25s ease-out" }}>
+        <div className="mt-3 paper-card rounded-2xl p-4 pop-in">
           <div className="flex items-start justify-between gap-3">
             <h3 className="font-display text-xl italic">{picked.name}</h3>
             <TypeBadge type={picked.type} />

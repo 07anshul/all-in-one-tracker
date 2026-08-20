@@ -21,7 +21,6 @@ export function PlanManager({ entryId, plans }: { entryId: string; plans: Plan[]
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!date) return;
     setSubmitting(true);
     const res = await authedFetch("/api/plans", {
       method: "POST",
@@ -48,6 +47,17 @@ export function PlanManager({ entryId, plans }: { entryId: string; plans: Plan[]
     router.refresh();
   }
 
+  async function setPlanDate(planId: string, newDate: string) {
+    setBusyId(planId);
+    await authedFetch(`/api/plans/${planId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date: newDate }),
+    });
+    setBusyId(null);
+    router.refresh();
+  }
+
   async function remove(planId: string) {
     setBusyId(planId);
     await authedFetch(`/api/plans/${planId}`, { method: "DELETE" });
@@ -63,16 +73,31 @@ export function PlanManager({ entryId, plans }: { entryId: string; plans: Plan[]
       {plans.map((plan) => (
         <div
           key={plan.id}
-          className="paper-card rounded-sm p-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3"
+          className="paper-card rounded-2xl p-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3"
         >
           <div className="flex-1 min-w-0">
             <span
-              className={`font-label text-[10px] uppercase tracking-widest border rounded-sm px-1.5 py-0.5 ${STATUS_STYLES[plan.status]}`}
+              className={`font-label text-[10px] uppercase tracking-widest border rounded-full px-2 py-0.5 ${STATUS_STYLES[plan.status]}`}
             >
               {plan.status}
             </span>
-            <span className="font-label text-[11px] text-ink-soft ml-2">{plan.date}</span>
+            {plan.date ? (
+              <span className="font-label text-[11px] text-ink-soft ml-2">{plan.date}</span>
+            ) : (
+              <span className="font-label text-[11px] text-ink-soft ml-2">someday</span>
+            )}
             {plan.note && <p className="text-sm mt-1">{plan.note}</p>}
+            {!plan.date && plan.status === "planned" && (
+              <label className="mt-2 inline-flex items-center gap-1.5 font-label text-[10px] uppercase tracking-widest text-ink-soft">
+                pick a date
+                <input
+                  type="date"
+                  onChange={(e) => e.target.value && setPlanDate(plan.id, e.target.value)}
+                  disabled={busyId === plan.id}
+                  className="bg-transparent border border-line rounded-full px-2 py-0.5 text-ink outline-none focus:border-ochre"
+                />
+              </label>
+            )}
           </div>
           <div className="flex gap-2 shrink-0">
             {plan.status !== "visited" && (
@@ -116,32 +141,34 @@ export function PlanManager({ entryId, plans }: { entryId: string; plans: Plan[]
       {!open ? (
         <button
           onClick={() => setOpen(true)}
-          className="font-label text-[11px] uppercase tracking-widest text-ochre border border-ochre rounded-sm px-3 py-1.5 hover:bg-[var(--ochre-soft)] transition-colors cursor-pointer"
+          className="font-label text-[11px] uppercase tracking-widest text-ochre border border-ochre rounded-full px-3 py-1.5 hover:bg-[var(--ochre-soft)] hover:scale-105 transition-all cursor-pointer"
         >
           + plan a visit
         </button>
       ) : (
-        <form onSubmit={handleSubmit} className="paper-card rounded-sm p-4 space-y-3">
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-            className="bg-transparent border border-line rounded-sm p-2 text-sm outline-none focus:border-ochre"
-          />
+        <form onSubmit={handleSubmit} className="paper-card rounded-2xl p-4 space-y-3 pop-in">
+          <label className="flex items-center gap-2 font-label text-[11px] uppercase tracking-widest text-ink-soft">
+            date (optional)
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="bg-transparent border border-line rounded-full px-2.5 py-1 text-sm text-ink outline-none focus:border-ochre"
+            />
+          </label>
           <input
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="why? (optional)"
-            className="w-full bg-transparent border border-line rounded-sm p-2.5 text-sm outline-none focus:border-ochre"
+            className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-ochre"
           />
           <div className="flex gap-2">
             <button
               type="submit"
               disabled={submitting}
-              className="font-label text-[11px] uppercase tracking-widest text-paper-card bg-ochre rounded-sm px-3 py-1.5 disabled:opacity-50 cursor-pointer"
+              className="font-label text-[11px] uppercase tracking-widest text-paper-card bg-ochre rounded-full px-3 py-1.5 disabled:opacity-50 hover:scale-105 transition-transform cursor-pointer"
             >
-              {submitting ? "saving…" : "save"}
+              {submitting ? "saving…" : date ? "save" : "add to someday"}
             </button>
             <button
               type="button"

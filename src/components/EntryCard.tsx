@@ -11,10 +11,10 @@ export function EntryCard({ entry }: { entry: Entry }) {
 
   return (
     <div
-      className="group relative paper-card rounded-sm p-5 transition-all hover:-translate-y-0.5 hover:border-rust/60"
+      className="group relative paper-card rounded-2xl p-5 transition-all hover:-translate-y-0.5 hover:border-rust/60"
       style={{ transitionProperty: "transform, box-shadow, border-color" }}
     >
-      <Link href={`/entry/${entry.id}`} className="absolute inset-0 rounded-sm">
+      <Link href={`/entry/${entry.id}`} className="absolute inset-0 rounded-2xl">
         <span className="sr-only">{entry.name}</span>
       </Link>
 
@@ -60,7 +60,7 @@ export function EntryCard({ entry }: { entry: Entry }) {
               <Link
                 key={tag}
                 href={`/?q=${encodeURIComponent(tag)}`}
-                className="font-label text-[10px] text-ink-soft bg-paper px-1.5 py-0.5 rounded-sm border border-line hover:border-rust hover:text-rust transition-colors"
+                className="font-label text-[10px] text-ink-soft bg-paper px-1.5 py-0.5 rounded-full border border-line hover:border-rust hover:text-rust transition-colors"
               >
                 {tag}
               </Link>

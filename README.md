@@ -1,4 +1,4 @@
-# Fieldnotes
+# Plan Better
 
 A running log of restaurants, places, and activities worth doing again — with
 reviews, ratings, and a lightweight relations graph ("near", "pairs well
@@ -68,8 +68,9 @@ writes.
 - **Relations** — a typed edge between two entries (`near`,
   `pairs-well-with`, `similar-to`, `reminds-me-of`, `better-than`), with an
   optional note. This is the "knowledge graph" part.
-- **Plans** — a planned/visited/skipped date attached to an entry, used by
-  the calendar page.
+- **Plans** — a planned/visited/skipped status attached to an entry, with an
+  optional date. No date means "someday" — a wishlist item with no day
+  picked yet — shown in its own section on the calendar page.
 
 See [`src/lib/types.ts`](src/lib/types.ts) for the exact shape.
 
@@ -78,7 +79,8 @@ See [`src/lib/types.ts`](src/lib/types.ts) for the exact shape.
 - **`/`** — the feed: filter by type, search, a stats strip, and a
   "surprise me" picker weighted toward unvisited/highly-rated entries.
 - **`/entry/[id]`** — an entry's reviews, its Google Maps link, its plan
-  history, and its connections to other entries.
+  history, and its connections to other entries. Editable in place (name,
+  type, location, speciality, tags), and deletable.
 - **`/graph`** — a force-directed visualization of every entry and relation
   (hand-rolled, no charting library), with an optional layer showing entries
   that share a tag.

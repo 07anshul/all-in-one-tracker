@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f6f1e6;
-  --paper-card: #fdfbf5;
+  --paper: #f8f2e5;
+  --paper-card: #fffcf6;
   --ink: #2b241c;
   --ink-soft: #6b6055;
-  --line: #ded2b8;
-  --rust: #b5502d;
-  --rust-soft: #e4c4b3;
-  --olive: #55603f;
-  --olive-soft: #d9dcc4;
-  --ochre: #a67c1f;
-  --ochre-soft: #ecdca8;
+  --line: #e3d5b8;
+  --rust: #d9573a;
+  --rust-soft: #f3d6c9;
+  --olive: #6f9143;
+  --olive-soft: #dfe8cc;
+  --ochre: #dd9c1f;
+  --ochre-soft: #f6e3b0;
 }
 
 :root[data-theme="dark"] {
@@ -20,12 +20,12 @@
   --ink: #ece3d2;
   --ink-soft: #a89c89;
   --line: #3c362a;
-  --rust: #e2794f;
-  --rust-soft: #4a2c22;
-  --olive: #a3b37f;
-  --olive-soft: #333a26;
-  --ochre: #d9ab4c;
-  --ochre-soft: #3d3320;
+  --rust: #d1653a;
+  --rust-soft: #4a2c1e;
+  --olive: #7ba050;
+  --olive-soft: #33401f;
+  --ochre: #b8842a;
+  --ochre-soft: #3d3018;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,12 +35,12 @@
     --ink: #ece3d2;
     --ink-soft: #a89c89;
     --line: #3c362a;
-    --rust: #e2794f;
-    --rust-soft: #4a2c22;
-    --olive: #a3b37f;
-    --olive-soft: #333a26;
-    --ochre: #d9ab4c;
-    --ochre-soft: #3d3320;
+    --rust: #d1653a;
+    --rust-soft: #4a2c1e;
+    --olive: #7ba050;
+    --olive-soft: #33401f;
+    --ochre: #b8842a;
+    --ochre-soft: #3d3018;
   }
 }
 
@@ -89,4 +89,23 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.pop-in {
+  animation: popIn 0.35s cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+}
+
+body {
+  transition: background-color 0.2s ease, color 0.2s ease;
 }

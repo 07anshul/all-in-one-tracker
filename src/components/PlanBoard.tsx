@@ -40,22 +40,28 @@ export function PlanBoard({ plans, today }: { plans: PlanWithEntry[]; today: str
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
 
+  const dated = useMemo(() => plans.filter((p) => p.date), [plans]);
+  const someday = useMemo(
+    () => plans.filter((p) => !p.date && p.status === "planned"),
+    [plans]
+  );
+
   const byDate = useMemo(() => {
     const map = new Map<string, PlanWithEntry[]>();
-    for (const p of plans) {
+    for (const p of dated) {
       const list = map.get(p.date) ?? [];
       list.push(p);
       map.set(p.date, list);
     }
     return map;
-  }, [plans]);
+  }, [dated]);
 
   const cells = monthGrid(viewYear, viewMonth);
 
   const visiblePlans = useMemo(() => {
-    if (selectedDay) return plans.filter((p) => p.date === selectedDay);
-    return plans;
-  }, [plans, selectedDay]);
+    if (selectedDay) return dated.filter((p) => p.date === selectedDay);
+    return dated;
+  }, [dated, selectedDay]);
 
   const upcoming = visiblePlans
     .filter((p) => p.status === "planned" && p.date >= today)
@@ -70,6 +76,17 @@ export function PlanBoard({ plans, today }: { plans: PlanWithEntry[]; today: str
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),
+    });
+    setBusyId(null);
+    router.refresh();
+  }
+
+  async function setDate(planId: string, date: string) {
+    setBusyId(planId);
+    await authedFetch(`/api/plans/${planId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date }),
     });
     setBusyId(null);
     router.refresh();
@@ -98,7 +115,7 @@ export function PlanBoard({ plans, today }: { plans: PlanWithEntry[]; today: str
 
   return (
     <div>
-      <div className="paper-card rounded-sm p-4 sm:p-5">
+      <div className="paper-card rounded-2xl p-4 sm:p-5">
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => shiftMonth(-1)}
@@ -136,7 +153,7 @@ export function PlanBoard({ plans, today }: { plans: PlanWithEntry[]; today: str
               <button
                 key={iso}
                 onClick={() => setSelectedDay(isSelected ? null : iso)}
-                className={`aspect-square rounded-sm border text-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer transition-colors ${
+                className={`aspect-square rounded-xl border text-xs flex flex-col items-center justify-center gap-0.5 cursor-pointer transition-colors ${
                   isSelected
                     ? "border-rust"
                     : isToday
@@ -171,6 +188,26 @@ export function PlanBoard({ plans, today }: { plans: PlanWithEntry[]; today: str
         )}
       </div>
 
+      {someday.length > 0 && (
+        <div className="mt-8">
+          <h2 className="font-label text-[11px] uppercase tracking-widest text-ink-soft mb-3">
+            someday · no date yet
+          </h2>
+          <div className="space-y-2">
+            {someday.map((plan) => (
+              <PlanRow
+                key={plan.id}
+                plan={plan}
+                busy={busyId === plan.id}
+                onSetStatus={setStatus}
+                onSetDate={setDate}
+                onRemove={remove}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="mt-8">
         <h2 className="font-label text-[11px] uppercase tracking-widest text-ink-soft mb-3">
           upcoming
@@ -185,6 +222,7 @@ export function PlanBoard({ plans, today }: { plans: PlanWithEntry[]; today: str
               plan={plan}
               busy={busyId === plan.id}
               onSetStatus={setStatus}
+              onSetDate={setDate}
               onRemove={remove}
             />
           ))}
@@ -205,6 +243,7 @@ export function PlanBoard({ plans, today }: { plans: PlanWithEntry[]; today: str
               plan={plan}
               busy={busyId === plan.id}
               onSetStatus={setStatus}
+              onSetDate={setDate}
               onRemove={remove}
             />
           ))}
@@ -218,23 +257,25 @@ function PlanRow({
   plan,
   busy,
   onSetStatus,
+  onSetDate,
   onRemove,
 }: {
   plan: PlanWithEntry;
   busy: boolean;
   onSetStatus: (id: string, status: PlanStatus) => void;
+  onSetDate: (id: string, date: string) => void;
   onRemove: (id: string) => void;
 }) {
   return (
-    <div className="paper-card rounded-sm p-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+    <div className="paper-card rounded-2xl p-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <span
-            className={`font-label text-[10px] uppercase tracking-widest border rounded-sm px-1.5 py-0.5 ${STATUS_STYLES[plan.status]}`}
+            className={`font-label text-[10px] uppercase tracking-widest border rounded-full px-2 py-0.5 ${STATUS_STYLES[plan.status]}`}
           >
             {plan.status}
           </span>
-          <span className="font-label text-[11px] text-ink-soft">{plan.date}</span>
+          {plan.date && <span className="font-label text-[11px] text-ink-soft">{plan.date}</span>}
           <Link
             href={`/entry/${plan.entryId}`}
             className="font-display italic hover:text-rust transition-colors"
@@ -244,6 +285,17 @@ function PlanRow({
           <TypeBadge type={plan.entryType} />
         </div>
         {plan.note && <p className="text-sm mt-1">{plan.note}</p>}
+        {!plan.date && plan.status === "planned" && (
+          <label className="mt-2 inline-flex items-center gap-1.5 font-label text-[10px] uppercase tracking-widest text-ink-soft">
+            pick a date
+            <input
+              type="date"
+              onChange={(e) => e.target.value && onSetDate(plan.id, e.target.value)}
+              disabled={busy}
+              className="bg-transparent border border-line rounded-full px-2 py-0.5 text-ink outline-none focus:border-ochre"
+            />
+          </label>
+        )}
       </div>
       <div className="flex gap-2 shrink-0">
         {plan.status !== "visited" && (

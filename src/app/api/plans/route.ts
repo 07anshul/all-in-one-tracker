@@ -11,8 +11,8 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const { entryId, date, note } = body ?? {};
 
-  if (typeof entryId !== "string" || typeof date !== "string" || !date) {
-    return NextResponse.json({ error: "entryId and date are required" }, { status: 400 });
+  if (typeof entryId !== "string" || !entryId) {
+    return NextResponse.json({ error: "entryId is required" }, { status: 400 });
   }
 
   const graph = await readGraph();
@@ -24,13 +24,16 @@ export async function POST(request: NextRequest) {
   const plan: Plan = {
     id: `plan-${Date.now().toString(36)}`,
     entryId,
-    date,
+    date: typeof date === "string" ? date : "",
     note: typeof note === "string" ? note.trim() : "",
     status: "planned",
   };
 
   graph.plans.push(plan);
-  await writeGraph(graph, `Plan a visit to ${entry.name} on ${date}`);
+  await writeGraph(graph, plan.date
+    ? `Plan a visit to ${entry.name} on ${plan.date}`
+    : `Add ${entry.name} to the someday list`
+  );
 
   return NextResponse.json(plan, { status: 201 });
 }

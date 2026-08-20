@@ -7,6 +7,7 @@ import type { Entry, Relation } from "@/lib/types";
 import { mapsLinkFor, directionsLinkFor } from "@/lib/maps";
 import { TypeBadge } from "./TypeBadge";
 import { PinIcon } from "./PinIcon";
+import { EmptyState } from "./EmptyState";
 
 const SUGGEST_KINDS = new Set(["near", "pairs-well-with"]);
 
@@ -104,7 +105,7 @@ export function ItineraryBuilder({
           className="w-full font-body text-sm bg-transparent border-b border-line focus:border-rust outline-none py-1.5 placeholder:text-ink-soft/70"
         />
         {searchResults.length > 0 && (
-          <div className="absolute z-10 mt-1 w-full paper-card rounded-sm overflow-hidden">
+          <div className="absolute z-10 mt-1 w-full paper-card rounded-2xl overflow-hidden">
             {searchResults.map((e) => (
               <button
                 key={e.id}
@@ -120,9 +121,7 @@ export function ItineraryBuilder({
       </div>
 
       {stops.length === 0 ? (
-        <p className="text-ink-soft italic font-display text-lg py-12 text-center">
-          Add a few stops to build a day plan.
-        </p>
+        <EmptyState message="Add a few stops to build a day plan." />
       ) : (
         <div className="space-y-2">
           {stops.map((entry, i) => {
@@ -130,7 +129,7 @@ export function ItineraryBuilder({
             return (
               <div
                 key={entry.id}
-                className="paper-card rounded-sm p-3 flex items-center gap-3"
+                className="paper-card rounded-2xl p-3 flex items-center gap-3"
               >
                 <span className="font-display italic text-ink-soft w-6 text-center shrink-0">
                   {i + 1}
@@ -197,7 +196,7 @@ export function ItineraryBuilder({
               <button
                 key={entry.id}
                 onClick={() => addStop(entry.id)}
-                className="font-label text-[11px] text-ink-soft border border-line rounded-sm px-2.5 py-1 hover:border-olive hover:text-olive transition-colors cursor-pointer"
+                className="font-label text-[11px] text-ink-soft border border-line rounded-full px-2.5 py-1 hover:border-olive hover:text-olive hover:scale-105 transition-all cursor-pointer"
               >
                 + {entry.name} <span className="opacity-70">(near {because})</span>
               </button>
@@ -210,7 +209,7 @@ export function ItineraryBuilder({
         <div className="mt-8 flex flex-wrap gap-3">
           <button
             onClick={copyLink}
-            className="font-label text-[11px] uppercase tracking-widest text-ink-soft border border-line rounded-sm px-3 py-1.5 hover:border-rust hover:text-rust transition-colors cursor-pointer"
+            className="font-label text-[11px] uppercase tracking-widest text-ink-soft border border-line rounded-full px-3 py-1.5 hover:border-rust hover:text-rust hover:scale-105 transition-all cursor-pointer"
           >
             {copied ? "copied!" : "copy shareable link"}
           </button>
@@ -219,7 +218,7 @@ export function ItineraryBuilder({
               href={directionsUrl}
               target="_blank"
               rel="noreferrer"
-              className="font-label text-[11px] uppercase tracking-widest text-paper-card bg-rust rounded-sm px-3 py-1.5 hover:opacity-90 transition-opacity"
+              className="font-label text-[11px] uppercase tracking-widest text-paper-card bg-rust rounded-full px-3 py-1.5 hover:opacity-90 hover:scale-105 transition-all"
             >
               open route in maps
             </a>

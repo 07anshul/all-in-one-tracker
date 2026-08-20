@@ -41,7 +41,7 @@ export function AddRelationForm({
     return (
       <button
         onClick={() => setOpen(true)}
-        className="font-label text-[11px] uppercase tracking-widest text-olive border border-olive rounded-sm px-3 py-1.5 hover:bg-[var(--olive-soft)] transition-colors cursor-pointer"
+        className="font-label text-[11px] uppercase tracking-widest text-olive border border-olive rounded-full px-3 py-1.5 hover:bg-[var(--olive-soft)] hover:scale-105 transition-all cursor-pointer"
       >
         + connect to another entry
       </button>
@@ -49,12 +49,12 @@ export function AddRelationForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="paper-card rounded-sm p-4 space-y-3">
+    <form onSubmit={handleSubmit} className="paper-card rounded-2xl p-4 space-y-3 pop-in">
       <div className="flex flex-col sm:flex-row gap-2">
         <select
           value={kind}
           onChange={(e) => setKind(e.target.value as RelationKind)}
-          className="bg-transparent border border-line rounded-sm p-2 text-sm outline-none focus:border-olive"
+          className="bg-transparent border border-line rounded-xl p-2 text-sm outline-none focus:border-olive"
         >
           {RELATION_KINDS.map((k) => (
             <option key={k} value={k}>
@@ -65,7 +65,7 @@ export function AddRelationForm({
         <select
           value={to}
           onChange={(e) => setTo(e.target.value)}
-          className="flex-1 bg-transparent border border-line rounded-sm p-2 text-sm outline-none focus:border-olive"
+          className="flex-1 bg-transparent border border-line rounded-xl p-2 text-sm outline-none focus:border-olive"
         >
           {otherEntries.map((e) => (
             <option key={e.id} value={e.id}>
@@ -78,13 +78,13 @@ export function AddRelationForm({
         value={note}
         onChange={(e) => setNote(e.target.value)}
         placeholder="why? (optional)"
-        className="w-full bg-transparent border border-line rounded-sm p-2.5 text-sm outline-none focus:border-olive"
+        className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-olive"
       />
       <div className="flex gap-2">
         <button
           type="submit"
           disabled={submitting}
-          className="font-label text-[11px] uppercase tracking-widest text-paper-card bg-olive rounded-sm px-3 py-1.5 disabled:opacity-50 cursor-pointer"
+          className="font-label text-[11px] uppercase tracking-widest text-paper-card bg-olive rounded-full px-3 py-1.5 disabled:opacity-50 hover:scale-105 transition-transform cursor-pointer"
         >
           {submitting ? "saving…" : "save"}
         </button>

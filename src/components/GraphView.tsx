@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { computeLayout, type LayoutEdge, type Point } from "@/lib/graph-layout";
 import { RELATION_LABELS } from "@/lib/types";
 import type { Entry, EntryType, Relation } from "@/lib/types";
+import { EmptyState } from "./EmptyState";
 
 const TYPE_COLOR: Record<EntryType, string> = {
   restaurant: "var(--rust)",
@@ -63,11 +64,11 @@ export function GraphView({ entries, relations }: { entries: Entry[]; relations:
   const entryById = useMemo(() => new Map(entries.map((e) => [e.id, e])), [entries]);
 
   if (entries.length === 0) {
-    return <p className="text-ink-soft italic font-display text-lg py-16 text-center">Nothing to map yet.</p>;
+    return <EmptyState message="Nothing to map yet." />;
   }
 
   if (!positions) {
-    return <div className="paper-card rounded-sm" style={{ height: 320 }} />;
+    return <div className="paper-card rounded-2xl" style={{ height: 320 }} />;
   }
 
   return (
@@ -89,7 +90,7 @@ export function GraphView({ entries, relations }: { entries: Entry[]; relations:
         </label>
       </div>
 
-      <div className="paper-card rounded-sm overflow-x-auto">
+      <div className="paper-card rounded-2xl overflow-x-auto">
         <svg
           ref={svgRef}
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}

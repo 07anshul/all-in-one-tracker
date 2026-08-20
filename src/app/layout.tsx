@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Karla, Space_Mono } from "next/font/google";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Logo } from "@/components/Logo";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -22,8 +23,8 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fieldnotes",
-  description: "A running log of restaurants, places, and things worth doing again.",
+  title: "Plan Better",
+  description: "Restaurants, places, and things worth doing again — plotted, rated, and remembered.",
 };
 
 const NAV_LINKS = [
@@ -50,9 +51,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
         <header className="border-b border-line">
           <div className="mx-auto max-w-4xl px-5 py-4 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3">
-            <Link href="/" className="group shrink-0">
+            <Link href="/" className="group shrink-0 flex items-center gap-1.5">
+              <Logo className="h-6 w-6 group-hover:scale-110 transition-transform" />
               <span className="font-display italic text-2xl tracking-tight">
-                Fieldnotes
+                Plan Better
               </span>
             </Link>
             <nav className="flex items-center gap-x-4 gap-y-2 flex-wrap font-label text-[11px] uppercase tracking-widest text-ink-soft">

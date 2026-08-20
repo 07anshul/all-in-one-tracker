@@ -32,7 +32,7 @@ export function AddReviewForm({ entryId }: { entryId: string }) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="font-label text-[11px] uppercase tracking-widest text-rust border border-rust rounded-sm px-3 py-1.5 hover:bg-[var(--rust-soft)] transition-colors cursor-pointer"
+        className="font-label text-[11px] uppercase tracking-widest text-rust border border-rust rounded-full px-3 py-1.5 hover:bg-[var(--rust-soft)] hover:scale-105 transition-all cursor-pointer"
       >
         + add a note
       </button>
@@ -40,7 +40,7 @@ export function AddReviewForm({ entryId }: { entryId: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="paper-card rounded-sm p-4 space-y-3">
+    <form onSubmit={handleSubmit} className="paper-card rounded-2xl p-4 space-y-3 pop-in">
       <div className="flex items-center gap-3">
         <span className="font-label text-[11px] uppercase tracking-widest text-ink-soft">
           rating
@@ -62,13 +62,13 @@ export function AddReviewForm({ entryId }: { entryId: string }) {
         onChange={(e) => setNote(e.target.value)}
         placeholder="what did you think?"
         rows={3}
-        className="w-full bg-transparent border border-line rounded-sm p-2.5 text-sm outline-none focus:border-rust"
+        className="w-full bg-transparent border border-line rounded-xl p-2.5 text-sm outline-none focus:border-rust"
       />
       <div className="flex gap-2">
         <button
           type="submit"
           disabled={submitting}
-          className="font-label text-[11px] uppercase tracking-widest text-paper-card bg-rust rounded-sm px-3 py-1.5 disabled:opacity-50 cursor-pointer"
+          className="font-label text-[11px] uppercase tracking-widest text-paper-card bg-rust rounded-full px-3 py-1.5 disabled:opacity-50 hover:scale-105 transition-transform cursor-pointer"
         >
           {submitting ? "saving…" : "save"}
         </button>

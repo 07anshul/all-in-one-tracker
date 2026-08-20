@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { Entry, EntryType } from "@/lib/types";
 import { EntryCard } from "./EntryCard";
+import { EmptyState } from "./EmptyState";
 
 const FILTERS: { label: string; value: EntryType | "all" }[] = [
   { label: "All", value: "all" },
@@ -45,7 +46,7 @@ export function EntryBrowser({
             <button
               key={f.value}
               onClick={() => setFilter(f.value)}
-              className={`font-label text-[11px] uppercase tracking-widest px-3 py-1.5 rounded-sm border transition-colors cursor-pointer ${
+              className={`font-label text-[11px] uppercase tracking-widest px-3 py-1.5 rounded-full border transition-colors cursor-pointer hover:scale-105 ${
                 filter === f.value
                   ? "border-rust text-rust"
                   : "border-line text-ink-soft hover:border-rust/40"
@@ -65,13 +66,13 @@ export function EntryBrowser({
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-ink-soft italic font-display text-lg py-16 text-center">
-          Nothing here yet.
-        </p>
+        <EmptyState message="Nothing here yet." />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
-          {filtered.map((entry) => (
-            <EntryCard key={entry.id} entry={entry} />
+          {filtered.map((entry, i) => (
+            <div key={entry.id} className="pop-in" style={{ animationDelay: `${Math.min(i, 8) * 40}ms` }}>
+              <EntryCard entry={entry} />
+            </div>
           ))}
         </div>
       )}

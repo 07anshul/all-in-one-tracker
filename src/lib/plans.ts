@@ -8,13 +8,17 @@ export function plansFor(graph: Graph, entryId: string): Plan[] {
 
 export function upcomingPlans(graph: Graph, today: string): Plan[] {
   return graph.plans
-    .filter((p) => p.status === "planned" && p.date >= today)
+    .filter((p) => p.status === "planned" && p.date && p.date >= today)
     .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+export function somedayPlans(graph: Graph): Plan[] {
+  return graph.plans.filter((p) => p.status === "planned" && !p.date);
 }
 
 export function pastPlans(graph: Graph, today: string): Plan[] {
   return graph.plans
-    .filter((p) => p.status !== "planned" || p.date < today)
+    .filter((p) => p.status !== "planned" || (p.date && p.date < today))
     .sort((a, b) => b.date.localeCompare(a.date));
 }
 
