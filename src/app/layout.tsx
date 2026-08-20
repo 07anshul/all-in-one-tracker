@@ -40,11 +40,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="flex-1">
           <div className="mx-auto max-w-4xl px-5 py-8">{children}</div>
         </main>
-        <footer className="border-t border-line">
-          <div className="mx-auto max-w-4xl px-5 py-6 font-label text-[10px] uppercase tracking-widest text-ink-soft">
-            kept in a git repo, not a database
-          </div>
-        </footer>
       </body>
     </html>
   );
