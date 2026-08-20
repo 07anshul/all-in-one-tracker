@@ -6,23 +6,13 @@
       "name": "Otto's Noodle Bar",
       "location": "Church Street",
       "speciality": "Hand-pulled noodles. Order the dan dan, ask for it extra numbing.",
-      "tags": [
-        "noodles",
-        "spicy",
-        "late-night"
-      ],
+      "tags": ["noodles", "spicy", "late-night"],
       "reviews": [
         {
           "id": "r1",
           "rating": 4.5,
           "note": "Went at 9pm on a Tuesday, no wait. The chili oil alone is worth the trip.",
           "date": "2026-03-14"
-        },
-        {
-          "id": "ottos-noodle-bar-r2",
-          "rating": 4,
-          "note": "Playwright smoke test note.",
-          "date": "2026-08-20"
         }
       ],
       "createdAt": "2026-03-14T18:20:00.000Z"
@@ -33,10 +23,7 @@
       "name": "Marigold Cafe",
       "location": "5th & Elm",
       "speciality": "Weekend brunch. The shakshuka and the burnt-honey latte.",
-      "tags": [
-        "brunch",
-        "coffee"
-      ],
+      "tags": ["brunch", "coffee"],
       "reviews": [
         {
           "id": "r2",
@@ -53,10 +40,7 @@
       "name": "Riverside Promenade",
       "location": "Along the east bank",
       "speciality": "Quiet at sunset, good for a walk after a heavy meal.",
-      "tags": [
-        "walk",
-        "outdoors"
-      ],
+      "tags": ["walk", "outdoors"],
       "reviews": [
         {
           "id": "r3",
@@ -73,10 +57,7 @@
       "name": "Old Town Bookshop",
       "location": "Below the clocktower",
       "speciality": "Deep used-fiction section, ask the owner for a recommendation.",
-      "tags": [
-        "books",
-        "quiet"
-      ],
+      "tags": ["books", "quiet"],
       "reviews": [
         {
           "id": "r4",
@@ -93,10 +74,7 @@
       "name": "Sunday Pottery Studio",
       "location": "Warehouse District",
       "speciality": "Drop-in wheel sessions, no booking needed before 11am.",
-      "tags": [
-        "hands-on",
-        "weekend"
-      ],
+      "tags": ["hands-on", "weekend"],
       "reviews": [
         {
           "id": "r5",
@@ -106,19 +84,6 @@
         }
       ],
       "createdAt": "2026-07-10T10:00:00.000Z"
-    },
-    {
-      "id": "playwright-test-activity",
-      "type": "activity",
-      "name": "Playwright Test Activity",
-      "location": "Test District",
-      "speciality": "This is a smoke-test entry.",
-      "tags": [
-        "test",
-        "automation"
-      ],
-      "reviews": [],
-      "createdAt": "2026-08-20T17:29:18.315Z"
     }
   ],
   "relations": [
@@ -135,13 +100,6 @@
       "to": "old-town-bookshop",
       "kind": "pairs-well-with",
       "note": "Coffee first, then browse"
-    },
-    {
-      "id": "rel-3-mt1soxvt",
-      "from": "ottos-noodle-bar",
-      "to": "marigold-cafe",
-      "kind": "near",
-      "note": ""
     }
   ]
 }

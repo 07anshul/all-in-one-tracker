@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fieldnotes
 
-## Getting Started
+A running log of restaurants, places, and activities worth doing again — with
+reviews, ratings, and a lightweight relations graph ("near", "pairs well
+with", "similar to"...) connecting entries to each other.
 
-First, run the development server:
+There is no database. All data lives in [`data/graph.json`](data/graph.json),
+committed straight to this repo. Locally, saving an entry writes the file and
+makes a git commit for you. Once deployed, saving an entry commits directly
+to GitHub via the API — every add/review/relation is a real, versioned commit.
+
+## Local development
 
 ```bash
+nvm use        # this repo pins Node 22 via .nvmrc
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. No environment variables are required locally —
+reads and writes go straight to `data/graph.json` on disk, and each write
+is auto-committed to git for you.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploying to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push this repo to GitHub (public is fine — reviews aren't sensitive, but
+   see the passphrase note below if you don't want strangers adding entries).
+2. Import the repo into [Vercel](https://vercel.com/new).
+3. Add these environment variables in the Vercel project settings:
 
-## Learn More
+   | Variable | Value |
+   |---|---|
+   | `GITHUB_OWNER` | your GitHub username |
+   | `GITHUB_REPO` | the repo name, e.g. `fieldnotes` |
+   | `GITHUB_BRANCH` | `main` (or whatever you deploy from) |
+   | `GITHUB_TOKEN` | a [fine-grained personal access token](https://github.com/settings/personal-access-tokens/new) scoped to just this repo, with **Contents: Read and write** permission |
+   | `WRITE_KEY` | *(optional)* a passphrase — see below |
 
-To learn more about Next.js, take a look at the following resources:
+4. Deploy. Reads happen over `raw.githubusercontent.com` (no token needed
+   since the repo is public); writes go through the GitHub Contents API using
+   `GITHUB_TOKEN` and land as commits on your repo.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Because the app reads live from GitHub on every request (not from the build),
+new entries show up immediately after saving — no redeploy needed.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Optional: a passphrase for writes
 
-## Deploy on Vercel
+This app has no login system. If it's deployed publicly, *anyone* with the
+URL can add entries, reviews, or relations — which means anyone could commit
+to your GitHub repo. If you only want yourself (or people you share a
+passphrase with) to be able to add things:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Set the `WRITE_KEY` environment variable to any secret string.
+- The first time you try to save something, the site will prompt for it and
+  remember it in your browser after that.
+- Leave `WRITE_KEY` unset (the default) to skip this entirely — reads and the
+  passphrase prompt are both no-ops if it's not configured.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Browsing and reading are always open either way; the passphrase only gates
+writes.
+
+## Data model
+
+- **Entries** — a restaurant, place, or activity. Has a name, location, a
+  "speciality" (what's actually good there), tags, and a list of reviews.
+- **Reviews** — a rating (0.5–5) and a note, attached to one entry.
+- **Relations** — a typed edge between two entries (`near`,
+  `pairs-well-with`, `similar-to`, `reminds-me-of`, `better-than`), with an
+  optional note. This is the "knowledge graph" part — shown on each entry's
+  page as a connections list.
+
+See [`src/lib/types.ts`](src/lib/types.ts) for the exact shape.
