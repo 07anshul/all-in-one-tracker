@@ -67,7 +67,28 @@ writes.
 - **Reviews** — a rating (0.5–5) and a note, attached to one entry.
 - **Relations** — a typed edge between two entries (`near`,
   `pairs-well-with`, `similar-to`, `reminds-me-of`, `better-than`), with an
-  optional note. This is the "knowledge graph" part — shown on each entry's
-  page as a connections list.
+  optional note. This is the "knowledge graph" part.
+- **Plans** — a planned/visited/skipped date attached to an entry, used by
+  the calendar page.
 
 See [`src/lib/types.ts`](src/lib/types.ts) for the exact shape.
+
+## Pages
+
+- **`/`** — the feed: filter by type, search, a stats strip, and a
+  "surprise me" picker weighted toward unvisited/highly-rated entries.
+- **`/entry/[id]`** — an entry's reviews, its Google Maps link, its plan
+  history, and its connections to other entries.
+- **`/graph`** — a force-directed visualization of every entry and relation
+  (hand-rolled, no charting library), with an optional layer showing entries
+  that share a tag.
+- **`/plan`** — a month calendar plus an agenda of upcoming/past plans; mark
+  a plan visited, skipped, or delete it.
+- **`/itinerary`** — string entries into an ordered day plan, get
+  relation-based suggestions for what to add next, copy a shareable link, or
+  open the whole route in Google Maps directions.
+- **`/stats`** — totals, entries by type, top tags, entries added over time.
+- **`/add`** — create a new entry.
+
+Google Maps links are built as plain search/directions URLs from an entry's
+name and location — no Maps API key needed.

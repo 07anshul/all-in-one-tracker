@@ -33,9 +33,20 @@ export interface Relation {
   note: string;
 }
 
+export type PlanStatus = "planned" | "visited" | "skipped";
+
+export interface Plan {
+  id: string;
+  entryId: string;
+  date: string;
+  note: string;
+  status: PlanStatus;
+}
+
 export interface Graph {
   entries: Entry[];
   relations: Relation[];
+  plans: Plan[];
 }
 
 export const ENTRY_TYPES: EntryType[] = ["restaurant", "place", "activity"];

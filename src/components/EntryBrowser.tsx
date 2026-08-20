@@ -11,9 +11,15 @@ const FILTERS: { label: string; value: EntryType | "all" }[] = [
   { label: "Activities", value: "activity" },
 ];
 
-export function EntryBrowser({ entries }: { entries: Entry[] }) {
+export function EntryBrowser({
+  entries,
+  initialQuery = "",
+}: {
+  entries: Entry[];
+  initialQuery?: string;
+}) {
   const [filter, setFilter] = useState<EntryType | "all">("all");
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

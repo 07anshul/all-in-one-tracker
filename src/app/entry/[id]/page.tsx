@@ -3,11 +3,15 @@ import { notFound } from "next/navigation";
 import { readGraph } from "@/lib/data";
 import { averageRating } from "@/lib/rating";
 import { relationsFor } from "@/lib/relations";
+import { plansFor } from "@/lib/plans";
 import { RELATION_LABELS, RELATION_LABELS_REVERSED } from "@/lib/types";
+import { mapsLinkFor } from "@/lib/maps";
 import { TypeBadge } from "@/components/TypeBadge";
 import { RatingDots } from "@/components/RatingDots";
 import { AddReviewForm } from "@/components/AddReviewForm";
 import { AddRelationForm } from "@/components/AddRelationForm";
+import { PlanManager } from "@/components/PlanManager";
+import { PinIcon } from "@/components/PinIcon";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +30,8 @@ export default async function EntryPage({
   const otherEntries = graph.entries
     .filter((e) => e.id !== id)
     .map((e) => ({ id: e.id, name: e.name }));
+  const mapsUrl = mapsLinkFor(entry);
+  const plans = plansFor(graph, id);
 
   return (
     <div>
@@ -42,9 +48,22 @@ export default async function EntryPage({
       </div>
 
       {entry.location && (
-        <p className="font-label text-xs uppercase tracking-wide text-ink-soft mt-2">
-          {entry.location}
-        </p>
+        <div className="flex items-center gap-1.5 mt-2">
+          <p className="font-label text-xs uppercase tracking-wide text-ink-soft">
+            {entry.location}
+          </p>
+          {mapsUrl && (
+            <a
+              href={mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 font-label text-[10px] uppercase tracking-wide text-ink-soft hover:text-rust transition-colors"
+            >
+              <PinIcon className="h-3 w-3" />
+              maps
+            </a>
+          )}
+        </div>
       )}
 
       <div className="mt-4">
@@ -60,12 +79,13 @@ export default async function EntryPage({
       {entry.tags.length > 0 && (
         <div className="mt-5 flex flex-wrap gap-1.5">
           {entry.tags.map((tag) => (
-            <span
+            <Link
               key={tag}
-              className="font-label text-[10px] text-ink-soft bg-paper px-1.5 py-0.5 rounded-sm border border-line"
+              href={`/?q=${encodeURIComponent(tag)}`}
+              className="font-label text-[10px] text-ink-soft bg-paper px-1.5 py-0.5 rounded-sm border border-line hover:border-rust hover:text-rust transition-colors"
             >
               {tag}
-            </span>
+            </Link>
           ))}
         </div>
       )}
@@ -95,6 +115,13 @@ export default async function EntryPage({
         <div className="mt-3">
           <AddReviewForm entryId={entry.id} />
         </div>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="font-label text-[11px] uppercase tracking-widest text-ink-soft mb-3">
+          plans
+        </h2>
+        <PlanManager entryId={entry.id} plans={plans} />
       </section>
 
       <section className="mt-10">

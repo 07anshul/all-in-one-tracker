@@ -79,3 +79,14 @@ body {
   background-color: var(--paper-card);
   border: 1px solid var(--line);
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

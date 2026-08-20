@@ -101,5 +101,28 @@
       "kind": "pairs-well-with",
       "note": "Coffee first, then browse"
     }
+  ],
+  "plans": [
+    {
+      "id": "plan1",
+      "entryId": "sunday-pottery-studio",
+      "date": "2026-08-30",
+      "note": "Try the wheel session again, bring the good apron",
+      "status": "planned"
+    },
+    {
+      "id": "plan2",
+      "entryId": "ottos-noodle-bar",
+      "date": "2026-07-01",
+      "note": "Went with friends after work",
+      "status": "visited"
+    },
+    {
+      "id": "plan3",
+      "entryId": "marigold-cafe",
+      "date": "2026-08-05",
+      "note": "Rescheduled, didn't make it",
+      "status": "skipped"
+    }
   ]
 }

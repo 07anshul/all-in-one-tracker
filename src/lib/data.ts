@@ -16,6 +16,12 @@ function useGitHub(): boolean {
 }
 
 export async function readGraph(): Promise<Graph> {
+  const graph = await readGraphRaw();
+  if (!graph.plans) graph.plans = [];
+  return graph;
+}
+
+async function readGraphRaw(): Promise<Graph> {
   if (useGitHub()) {
     const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${DATA_PATH}`;
     const res = await fetch(url, { cache: "no-store" });
