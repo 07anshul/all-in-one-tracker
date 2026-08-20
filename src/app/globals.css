@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f6f1e6;
+  --paper-card: #fdfbf5;
+  --ink: #2b241c;
+  --ink-soft: #6b6055;
+  --line: #ded2b8;
+  --rust: #b5502d;
+  --rust-soft: #e4c4b3;
+  --olive: #55603f;
+  --olive-soft: #d9dcc4;
+  --ochre: #a67c1f;
+  --ochre-soft: #ecdca8;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root[data-theme="dark"] {
+  --paper: #1b1812;
+  --paper-card: #24211a;
+  --ink: #ece3d2;
+  --ink-soft: #a89c89;
+  --line: #3c362a;
+  --rust: #e2794f;
+  --rust-soft: #4a2c22;
+  --olive: #a3b37f;
+  --olive-soft: #333a26;
+  --ochre: #d9ab4c;
+  --ochre-soft: #3d3320;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --paper: #1b1812;
+    --paper-card: #24211a;
+    --ink: #ece3d2;
+    --ink-soft: #a89c89;
+    --line: #3c362a;
+    --rust: #e2794f;
+    --rust-soft: #4a2c22;
+    --olive: #a3b37f;
+    --olive-soft: #333a26;
+    --ochre: #d9ab4c;
+    --ochre-soft: #3d3320;
   }
 }
 
+@theme inline {
+  --color-paper: var(--paper);
+  --color-card: var(--paper-card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-rust: var(--rust);
+  --color-rust-soft: var(--rust-soft);
+  --color-olive: var(--olive);
+  --color-olive-soft: var(--olive-soft);
+  --color-ochre: var(--ochre);
+  --color-ochre-soft: var(--ochre-soft);
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-karla);
+  --font-label: var(--font-space-mono);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+  background-image:
+    radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -11px -11px;
+}
+
+::selection {
+  background: var(--rust);
+  color: var(--paper-card);
+}
+
+.paper-card {
+  background-color: var(--paper-card);
+  border: 1px solid var(--line);
 }
