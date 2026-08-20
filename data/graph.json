@@ -17,6 +17,12 @@
           "rating": 4.5,
           "note": "Went at 9pm on a Tuesday, no wait. The chili oil alone is worth the trip.",
           "date": "2026-03-14"
+        },
+        {
+          "id": "ottos-noodle-bar-r2",
+          "rating": 4,
+          "note": "Playwright smoke test note.",
+          "date": "2026-08-20"
         }
       ],
       "createdAt": "2026-03-14T18:20:00.000Z"
