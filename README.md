@@ -23,16 +23,17 @@ is auto-committed to git for you.
 
 ## Deploying to Vercel
 
-1. Push this repo to GitHub (public is fine — reviews aren't sensitive, but
-   see the passphrase note below if you don't want strangers adding entries).
-2. Import the repo into [Vercel](https://vercel.com/new).
-3. Add these environment variables in the Vercel project settings:
+This repo already lives at
+[github.com/07anshul/all-in-one-tracker](https://github.com/07anshul/all-in-one-tracker).
+
+1. Import that repo into [Vercel](https://vercel.com/new).
+2. Add these environment variables in the Vercel project settings:
 
    | Variable | Value |
    |---|---|
-   | `GITHUB_OWNER` | your GitHub username |
-   | `GITHUB_REPO` | the repo name, e.g. `fieldnotes` |
-   | `GITHUB_BRANCH` | `main` (or whatever you deploy from) |
+   | `GITHUB_OWNER` | `07anshul` |
+   | `GITHUB_REPO` | `all-in-one-tracker` |
+   | `GITHUB_BRANCH` | `main` |
    | `GITHUB_TOKEN` | a [fine-grained personal access token](https://github.com/settings/personal-access-tokens/new) scoped to just this repo, with **Contents: Read and write** permission |
    | `WRITE_KEY` | *(optional)* a passphrase — see below |
 
