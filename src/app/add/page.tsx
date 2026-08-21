@@ -43,8 +43,8 @@ export default function AddEntryPage() {
       setError(body.error ?? "Something went wrong.");
       return;
     }
-    const entry = await res.json();
-    router.push(`/entry/${entry.id}`);
+    await res.json();
+    router.push("/");
   }
 
   return (
