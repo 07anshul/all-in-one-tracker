@@ -32,7 +32,7 @@
     {
       "id": "pizza-4ps-plan1",
       "entryId": "pizza-4ps-indiranagar",
-      "date": "2026-08-22",
+      "date": "",
       "note": "Heard great things — want to try, no date picked yet.",
       "status": "planned"
     },
@@ -41,7 +41,7 @@
       "entryId": "insidious-out-of-the-further",
       "date": "2026-08-21",
       "note": "",
-      "status": "planned"
+      "status": "visited"
     }
   ]
 }
