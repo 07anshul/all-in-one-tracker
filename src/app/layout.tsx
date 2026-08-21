@@ -3,6 +3,7 @@ import { Fredoka, Nunito } from "next/font/google";
 import Link from "next/link";
 import { NavMenu } from "@/components/NavMenu";
 import { Logo } from "@/components/Logo";
+import { PassphraseModal } from "@/components/PassphraseModal";
 import "./globals.css";
 
 const fredoka = Fredoka({
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="flex-1">
           <div className="mx-auto max-w-4xl px-5 py-8">{children}</div>
         </main>
+        <PassphraseModal />
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { readGraph, writeGraph } from "@/lib/data";
 import { isAuthorized } from "@/lib/auth";
+import { apiError } from "@/lib/api";
 
 const VALID_STATUSES = ["planned", "visited", "skipped"];
 
@@ -16,25 +17,28 @@ export async function PATCH(
   const body = await request.json();
   const { status, date, note } = body ?? {};
 
-  const graph = await readGraph();
-  const plan = graph.plans.find((p) => p.id === id);
-  if (!plan) {
-    return NextResponse.json({ error: "Plan not found" }, { status: 404 });
+  if (status !== undefined && !VALID_STATUSES.includes(status)) {
+    return NextResponse.json({ error: "Invalid status" }, { status: 400 });
   }
 
-  if (status !== undefined) {
-    if (!VALID_STATUSES.includes(status)) {
-      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
+  try {
+    const graph = await readGraph();
+    const plan = graph.plans.find((p) => p.id === id);
+    if (!plan) {
+      return NextResponse.json({ error: "Plan not found" }, { status: 404 });
     }
-    plan.status = status;
+
+    if (status !== undefined) plan.status = status;
+    if (typeof date === "string" && date) plan.date = date;
+    if (typeof note === "string") plan.note = note.trim();
+
+    const entry = graph.entries.find((e) => e.id === plan.entryId);
+    await writeGraph(graph, `Update plan for ${entry?.name ?? plan.entryId}`);
+
+    return NextResponse.json(plan);
+  } catch (err) {
+    return apiError(err);
   }
-  if (typeof date === "string" && date) plan.date = date;
-  if (typeof note === "string") plan.note = note.trim();
-
-  const entry = graph.entries.find((e) => e.id === plan.entryId);
-  await writeGraph(graph, `Update plan for ${entry?.name ?? plan.entryId}`);
-
-  return NextResponse.json(plan);
 }
 
 export async function DELETE(
@@ -46,15 +50,20 @@ export async function DELETE(
   }
 
   const { id } = await params;
-  const graph = await readGraph();
-  const plan = graph.plans.find((p) => p.id === id);
-  if (!plan) {
-    return NextResponse.json({ error: "Plan not found" }, { status: 404 });
+
+  try {
+    const graph = await readGraph();
+    const plan = graph.plans.find((p) => p.id === id);
+    if (!plan) {
+      return NextResponse.json({ error: "Plan not found" }, { status: 404 });
+    }
+
+    const entry = graph.entries.find((e) => e.id === plan.entryId);
+    graph.plans = graph.plans.filter((p) => p.id !== id);
+    await writeGraph(graph, `Remove plan for ${entry?.name ?? plan.entryId}`);
+
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    return apiError(err);
   }
-
-  const entry = graph.entries.find((e) => e.id === plan.entryId);
-  graph.plans = graph.plans.filter((p) => p.id !== id);
-  await writeGraph(graph, `Remove plan for ${entry?.name ?? plan.entryId}`);
-
-  return NextResponse.json({ ok: true });
 }

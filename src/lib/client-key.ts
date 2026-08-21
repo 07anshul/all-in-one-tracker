@@ -1,3 +1,5 @@
+import { askForPassphrase } from "./passphrase-modal";
+
 const STORAGE_KEY = "plan-better-write-key";
 
 function getStoredKey(): string {
@@ -15,7 +17,7 @@ export async function authedFetch(url: string, init: RequestInit): Promise<Respo
   let res = await fetch(url, { ...init, headers });
 
   if (res.status === 401) {
-    const entered = window.prompt("This site is passphrase-protected. Enter it:");
+    const entered = await askForPassphrase();
     if (entered === null) return res;
     setStoredKey(entered);
     headers.set("x-plan-better-key", entered);

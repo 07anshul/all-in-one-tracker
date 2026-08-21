@@ -77,6 +77,12 @@ export async function writeGraph(graph: Graph, message: string): Promise<void> {
     return;
   }
 
+  if (process.env.VERCEL) {
+    throw new Error(
+      "Storage isn't configured — set GITHUB_OWNER, GITHUB_REPO, and GITHUB_TOKEN in your Vercel project's environment variables (see README)."
+    );
+  }
+
   await fs.writeFile(LOCAL_FILE, serialized, "utf-8");
   await tryLocalCommit(message);
 }
